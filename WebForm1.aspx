@@ -6,13 +6,14 @@
    
         .bimage-validation-failed{
             border-color: red;
-            border-style:solid;
+            border-style:solid !important;
         }
          .bimage-validation-ok{
             border-color: black;
             border-style:none;
         }
         </style>
+
 
      <dx:BootstrapFloatingActionButton runat="server" ID="BsActionButton" ContainerCssSelector="#default-fab" InitialActionContext="c1">
         <Items>
@@ -68,27 +69,31 @@
         </ContentCollection>
     </dx:BootstrapPopupControl>
 
-    <script>
-        function OnValueChanged(s, e) {
-            if (BsImageNewC.GetValue() != '')
-            BsImageNewC.GetMainElement().className = '';
-        }
-        function conClick(s, e) {
-            if (BsImageNewC.GetValue() == '') BsImageNewC.GetMainElement().className = 'bimage-validation-failed';
-            var isValid = ASPxClientEdit.ValidateGroup('Validation') && BsImageNewC.GetValue();
-            if (isValid)
-                popupControl.Hide();
-            e.processOnServer = isValid;
-        }
-        function OnActionItemClick(s, e) {
+     <script>
+         function OnValueChanged(s, e) {
+             if (BsImageNewC.GetValue() != '') {
+                 BsImageNewC.GetMainElement().getElementsByClassName("img-thumbnail")[0].className = "img-thumbnail";
+             }
 
-            if (e.actionName === "a1") {
-                popupControl.Show();
-            }
-            else if (e.actionName === "Cancel") {
-                gridFAB.CancelEdit();
-            }
-        }
-    </script>
+
+         }
+         function conClick(s, e) {
+             if (BsImageNewC.GetValue() == '')
+                 BsImageNewC.GetMainElement().getElementsByClassName("img-thumbnail")[0].className = 'img-thumbnail bimage-validation-failed';
+             var isValid = ASPxClientEdit.ValidateGroup('Validation') && BsImageNewC.GetValue();
+             if (isValid)
+                 popupControl.Hide();
+             e.processOnServer = isValid;
+         }
+         function OnActionItemClick(s, e) {
+
+             if (e.actionName === "a1") {
+                 popupControl.Show();
+             }
+             else if (e.actionName === "Cancel") {
+                 gridFAB.CancelEdit();
+             }
+         }
+     </script>
 
 </asp:Content>
